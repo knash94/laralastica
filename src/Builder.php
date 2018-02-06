@@ -115,6 +115,18 @@ class Builder implements BuilderContract
     }
 
     /**
+     * Set the minimum score of the query
+     *
+     * @param float     $score
+     * @return $this
+     */
+    public function setMinScore($score)
+    {
+        $this->driver->setMinScore($score);
+        return $this;
+    }
+
+    /**
      * Create a new query object.
      *
      * @param mixed $query

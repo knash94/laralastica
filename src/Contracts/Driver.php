@@ -175,4 +175,12 @@ interface Driver
      * @return Driver
      */
     public function delete($type, $id);
+
+    /**
+     * Set the minimum score of the query
+     *
+     * @param float     $score
+     * @return $this
+     */
+    public function setMinScore($score);
 }

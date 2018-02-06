@@ -57,6 +57,14 @@ interface Builder
     public function addMultiple($type, array $data);
 
     /**
+     * Set the minimum score of the query
+     *
+     * @param float     $score
+     * @return $this
+     */
+    public function setMinScore($score);
+
+    /**
      * Delete a document from the provided type.
      *
      * @param string     $type

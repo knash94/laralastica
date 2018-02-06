@@ -49,6 +49,13 @@ class ElasticaDriver implements Driver
      */
     protected $config;
 
+    /**
+     * The minimum score
+     *
+     * @var float
+     */
+    protected $minScore;
+
     public function __construct(Client $client, Index $index, array $config)
     {
         $this->client = $client;
@@ -68,7 +75,12 @@ class ElasticaDriver implements Driver
         $search = $this->newSearch($types);
         $query = $this->newQuery($queries);
 
+        if ($this->minScore) {
+            $query->setMinScore($this->minScore);
+        }
+
         $query->setSize($this->config['size']);
+
         $search->setQuery($query);
 
         return $this->newResultCollection($search->search());
@@ -329,6 +341,19 @@ class ElasticaDriver implements Driver
         $query = new Wildcard($key, $value, $boost);
 
         return $this->returnQuery($query, $callback);
+    }
+
+    /**
+     * Set the minimum score of the query
+     *
+     * @param float     $score
+     * @return $this
+     */
+    public function setMinScore($score)
+    {
+        $this->minScore = $score;
+
+        return $this;
     }
 
     /**
